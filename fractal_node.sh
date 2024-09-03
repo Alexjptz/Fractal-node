@@ -41,7 +41,9 @@ while true; do
     echo "5. Посмотреть private key (Check private key)"
     echo "6. Проверить логи (Check logs)"
     echo "7. Удалить ноду (Delete Node)"
-    echo "8. Выход (Exit)"
+    echo "8. Обновление (Uodate)"
+    echo "9. Восстановление (Restore)"
+    echo "10. Выход (Exit)"
     echo ""
     read -p "Выберите опцию (Select option): " option
 
@@ -107,21 +109,22 @@ while true; do
             echo -e "\e[33mСоздаем сервис (Creating service)...\e[0m"
             sleep 1
 
-            if sudo bash -c "cat << 'EOF' > /etc/systemd/system/fractald.service
-                [Unit]
-                Description=Fractal Node
-                After=network-online.target
+            if sudo tee /etc/systemd/system/fractald.service > /dev/null << EOF
+[Unit]
+Description=Fractal Node
+After=network-online.target
 
-                [Service]
-                User=$USER
-                ExecStart=/root/fractald-0.1.7-x86_64-linux-gnu/bin/bitcoind -datadir=/root/fractald-0.1.7-x86_64-linux-gnu/data/ -maxtipage=504576000
-                Restart=always
-                RestartSec=5
-                LimitNOFILE=infinity
+[Service]
+User=$USER
+ExecStart=/root/fractald-0.1.7-x86_64-linux-gnu/bin/bitcoind -datadir=/root/fractald-0.1.7-x86_64-linux-gnu/data/ -maxtipage=504576000
+Restart=always
+RestartSec=5
+LimitNOFILE=infinity
 
-                [Install]
-                WantedBy=multi-user.target
-                EOF"; then
+[Install]
+WantedBy=multi-user.target
+EOF
+                then
                 sleep 1
                 echo -e "Сервис фаил создан (Service file created): \e[32mУспешно (Success)\e[0m"
                 echo ""
@@ -232,6 +235,16 @@ while true; do
             echo ""
             ;;
         8)
+            # Update node
+            echo -e "\e[33m TBA. PLEASE STAY TUNE ---\e[0m"
+            echo ""
+            ;;
+        9)
+            # restore node
+            echo -e "\e[33m TBA. PLEASE STAY TUNE ---\e[0m"
+            echo ""
+            ;;
+        10)
             # Stop script and exit
             echo -e "\e[31mСкрипт остановлен (Script stopped)\e[0m"
             echo ""
