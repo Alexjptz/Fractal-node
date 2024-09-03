@@ -107,7 +107,7 @@ while true; do
             echo -e "\e[33mСоздаем сервис (Creating service)...\e[0m"
             sleep 1
 
-            if sudo bash -c 'cat << EOF > /etc/systemd/system/fractald.service
+            if sudo bash -c "cat << 'EOF' > /etc/systemd/system/fractald.service
                 [Unit]
                 Description=Fractal Node
                 After=network-online.target
@@ -121,7 +121,7 @@ while true; do
 
                 [Install]
                 WantedBy=multi-user.target
-                EOF'; then
+                EOF"; then
                 sleep 1
                 echo -e "Сервис фаил создан (Service file created): \e[32mУспешно (Success)\e[0m"
                 echo ""
